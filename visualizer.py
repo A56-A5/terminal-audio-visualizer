@@ -23,36 +23,36 @@ prev = None
 def center_zigzag(values):
     n = len(values)
     out = np.zeros(n)
-    center = n // 2
-    left = center - 1
-    right = center if n % 2 == 0 else center + 1
 
-    out[center] = values[0]  
-    idx = 1
-    side = True  
+    left = (n - 1) // 2
+    right = left + 1
+    idx = 0
 
     while idx < n:
-        if side and right < n:
-            out[right] = values[idx]
-            right += 1
-        elif not side and left >= 0:
+        if left >= 0:
             out[left] = values[idx]
             left -= 1
-        idx += 1
-        side = not side
+            idx += 1
+        if idx < n and right < n:
+            out[right] = values[idx]
+            right += 1
+            idx += 1
+
     return out
 
 def render_vertical(values, height):
     values = np.interp(values, (0, np.max(values) + 1e-6), (0, height))
     w = len(values)
-    canvas = [[" "] * (w * 2 - 1) for _ in range(height)]
+    canvas_width = w * 2 - 1
+    canvas = [[GAP_CHAR] * canvas_width for _ in range(height)]
+
     for i, v in enumerate(values):
         h = int(v)
-        x = i * 2
+        x = i*2 if i <= (w-1)//2 else i*2 - 2 
         for y in range(h):
             canvas[height - 1 - y][x] = BAR_CHAR
-    return "\n".join("".join(row).rstrip() for row in canvas)
 
+    return "\n".join("".join(row).rstrip() for row in canvas)
 
 with mic.recorder(samplerate=SAMPLE_RATE, blocksize=BLOCK_SIZE) as recorder:
     while True:

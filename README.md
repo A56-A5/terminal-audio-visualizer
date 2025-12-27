@@ -3,6 +3,10 @@
 A real-time terminal audio visualizer using Python, NumPy, and Soundcard.  
 Displays audio FFT as vertical bars in your terminal.
 <div style="display:flex">
+<img src="imgs/visualizer0.gif" alt="Visualizer Demo" width="400"/>
+<img src="imgs/visualizer3.gif" alt="Visualizer Demo" width="400"/>
+</div>
+<div style="display:flex">
 <img src="imgs/visualizer2.gif" alt="Visualizer Demo" width="400"/>
 <img src="imgs/visualizer.gif" alt="Visualizer Demo" width="400"/>
 </div>
